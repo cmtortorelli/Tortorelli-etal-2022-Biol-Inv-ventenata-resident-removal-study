@@ -1,31 +1,18 @@
----
-title: "ventenata response to clearing and vegetation type & test of seeding vs. unseeded control"
-author: "Claire Tortorelli"
-date: "August 18, 2021"
-output:
-  github_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
-
-library(here)
-library(tidyverse)
-library(ggplot2)
-library(lme4)
-library(stringr)
-library(nlme)
-library(emmeans)
-```
+ventenata response to clearing and vegetation type & test of seeding
+vs. unseeded control
+================
+Claire Tortorelli
+August 18, 2021
 
 read in data
-```{r data}
+
+``` r
 bio <- read_csv(here("data", "biomass_data_2019_2020.csv"))
 ```
 
 ### Organize data for analysis
-```{r format data}
 
+``` r
 #add col for plot number, plot, and treatment: C = community, uncleared; N = no neighbors, cleared (apologies for the confusing codes)
 
 bio$plotno <- factor(substr(bio$plot_quad,5,6))
@@ -58,12 +45,11 @@ bio %>% group_by(vegtype, trt) %>%
 
 ### Fit model
 
-Model VEDU biomass response to removal treatment by veg type
-split block design receives random effect for block (plotno) and plot
-control for 2019 biomass (indicates potential seed bank and microsite suitability)
+Model VEDU biomass response to removal treatment by veg type split block
+design receives random effect for block (plotno) and plot control for
+2019 biomass (indicates potential seed bank and microsite suitability)
 
-```{r}
-
+``` r
 #model treatment 
 mtrt <- lme(log(stahel_vd20biomass) ~ trt*vegtype + log(stahel_vd19biomass), random = ~ 1|plotno/plot, data = bio)
 
@@ -77,8 +63,10 @@ summary(mtrt.emm)
 #large difference between seeded and unseeded subplots
 ```
 
-Model effect of seed addition vs. unseeded controls, not accounting for clearing
-```{r}
+Model effect of seed addition vs. unseeded controls, not accounting for
+clearing
+
+``` r
 #model just seeded vs. unseeded treatment 
 mtrt2 <- lme(log(stahel_vd20biomass) ~ trt2*vegtype + log(stahel_vd19biomass), random = ~ 1|plotno/plot, data = bio)
 
@@ -94,8 +82,8 @@ summary(mtrt2.emm)
 ### Plot results
 
 Extract means for plotting
-```{r}
 
+``` r
 (means_table = mtrt.emm$emmeans %>%
 summary(infer = c(TRUE, FALSE) ) %>%
 as.data.frame() )
@@ -107,13 +95,12 @@ means_table$vegtype  <- factor(means_table$vegtype, levels = c("ARRI", "ARAR", "
 
 
 means_table$trt  <- factor(means_table$trt, levels = c("C.", "N.", "CC", "NN"), labels = c("uncleared + seed", "cleared + seed", "uncleared + unseeded", "cleared + unseeded"))
-
 ```
 
+plot 2020 vedu biomass (post seeding) by treatment (cleared
+vs. uncleared) and vegetation type
 
-plot 2020 vedu biomass (post seeding) by treatment (cleared vs. uncleared) and vegetation type
-```{r fig.height=4.5, fig.width=4.5}
-
+``` r
 ( g1 = ggplot(subset(means_table, trt %in% c("uncleared + seed", "cleared + seed")), aes(y = response, x = vegtype, group = trt, color = vegtype)) +
 # Define stock as group this week as well as set x and y axes
 geom_point(position = position_dodge(width = .75), size = 3 ) + # Add points, dodge by group
@@ -133,7 +120,8 @@ panel.grid.major.x = element_blank() ))
 ```
 
 plot unseeded control
-```{r fig.height=4.5, fig.width=4.5}
+
+``` r
 # plot unseeded controls
 
 ( g2 = ggplot(subset(means_table, trt %in% c("uncleared + unseeded", "cleared + unseeded")), aes(y = response, x = vegtype, group = trt, color = vegtype)) +
@@ -153,10 +141,11 @@ legend.position = "bottom", # change legend position
 panel.grid.minor = element_blank(),
 axis.title.x=element_blank(),# Remove gridlines
 panel.grid.major.x = element_blank() ))
-
 ```
+
 combine figures with cowplot
-```{r}
+
+``` r
 library(cowplot)
 
 # svg(filename = "vedu_response_to_removal_trt.svg",
@@ -167,7 +156,3 @@ cowplot::plot_grid(g1, g2, labels = c("(a)", "(b)"))
 
 # dev.off()
 ```
-
-
-
-
