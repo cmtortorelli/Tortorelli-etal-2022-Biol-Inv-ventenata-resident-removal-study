@@ -4,14 +4,18 @@ Code and data to support the manuscript "How do plant communities and abiotic st
 ## Data
 
 - "2020_vd_heights_by_vegtype":
+- 
 Ventenata heights (measured in 2020) by plot. 5 heights were measured at each plot. 
 
 - "biomass_data_2019_2020":
+- 
 Ventenata biomass (measured in 2019 & 2020) and resident biomass (measured in 2020) by plot. Biomass are reported in grams.
 
 ### Vegetation type (vegtype) codes:
 ARRI = *Artemisia rigida* = scab-flat
+
 ARAR = *Artemisia arbuscula* = low sage-steppe
+
 SEEP = seep/ wet meadow
 
 ### Plot codes:
@@ -22,8 +26,11 @@ Vegetation type + plot number + treatment + subplot number (1-7 for seeded; 1-3 
 
 #### Treatment codes:
 NN= "no neighbors" = Cleared unseeded control
+
 CC = "community" = Uncleared unseeded control
+
 N. = "no neighbors" = Cleared + seed
+
 C. = "community" = Uncleared + seed
 
 ## Scripts
