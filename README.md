@@ -1,5 +1,5 @@
 # ventenata-resident-removal-study
-Code and data to support the manuscript "How do plant communities and abiotic stress interact to influence a recent annual grass invader, Ventenata dubia?"
+Code and data to support the manuscript "How do plant communities influence the invasive annual grass, *Ventenata dubia*, across a productivity gradient?"
 
 ## Data
 
