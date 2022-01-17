@@ -5,6 +5,10 @@
 # Session Data files
 .RData
 
+# figures
+.svg
+.png
+
 # User-specific files
 .Ruserdata
 

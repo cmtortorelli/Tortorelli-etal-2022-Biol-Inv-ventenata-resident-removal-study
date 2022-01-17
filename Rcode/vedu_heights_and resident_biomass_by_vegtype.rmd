@@ -65,9 +65,18 @@ emdf <- data.frame(em$emmeans)
 
 emdf$vegtype <- factor(emdf$vegtype, labels = c("ARRI"="scab-flat", "ARAR"="low sage-steppe", "SEEP" = "wet meadow"))
 
+confint(em)
 ```
 
 ### model resident biomass response to vegetation type
+
+```{r}
+biosum <- bio_uncleared %>% group_by(vegtype) %>%
+  summarize(mean = mean(resident20_g),
+            sd = sd(resident20_g))
+
+```
+
 
 ```{r}
 #random effects for plot and block (plot no)
@@ -96,13 +105,14 @@ geom_point(position = position_dodge(width = .75), size = 3 ) + # Add points, do
 geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL, width = 0.5), size = 1,
 position = position_dodge(width = .75) ) + # Add errorbars, dodge by group
 theme_bw(base_size = 14) +
-labs(y = expression("mean"~italic("V. dubia")~" height"))+
-scale_color_manual(values = pal))+
+labs(y = expression(~italic("V. dubia")~" height (cm)"))+
+scale_color_manual(values = c("#A6761D", "#E6AB02", "#666666"))+
     guides(color = FALSE)+
-theme(
+theme(legend.direction = "horizontal", # make legend horiz
+legend.position = "bottom", # change legend position
 panel.grid.minor = element_blank(),
 axis.title.x=element_blank(),# Remove gridlines
-panel.grid.major.x = element_blank())
+panel.grid.major.x = element_blank() ))
 
 ```
 
@@ -115,19 +125,26 @@ geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL, width = 0.5), size = 1,
 position = position_dodge(width = .75) ) + # Add errorbars, dodge by group
 theme_bw(base_size = 14) +
   scale_y_continuous(breaks = c(4,8,12))+
-labs(y = "mean resident biomass (g/subplot)")+
-scale_color_manual(values = pal))+
+labs(y = "resident biomass (g)")+
+scale_color_manual(values = c("#A6761D", "#E6AB02", "#666666"))+
     guides(color = FALSE)+
-theme(
+theme(legend.direction = "horizontal", # make legend horiz
+legend.position = "bottom", # change legend position
 panel.grid.minor = element_blank(),
 axis.title.x=element_blank(),# Remove gridlines
-panel.grid.major.x = element_blank())
+panel.grid.major.x = element_blank() ))
 ```
 
 combine figures with cowplot
 ```{r}
 library(cowplot)
 
+svg(filename = "vedu_heights_biomass.svg",
+    width = 7.5,
+    height = 3.5)
+
+
 plot_grid(g2, g1, labels = c("(a)", "(b)"))
 
+dev.off()
 ```
