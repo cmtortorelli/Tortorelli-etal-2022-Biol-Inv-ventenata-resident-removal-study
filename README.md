@@ -10,11 +10,9 @@ Ventenata heights (measured in 2020) by plot. 5 heights were measured at each pl
 Ventenata biomass (measured in 2019 & 2020) and resident biomass (measured in 2020) by plot. Biomass are reported in grams.
 
 ### Vegetation type (vegtype) codes:
-ARRI = *Artemisia rigida* = scab-flat
-
-ARAR = *Artemisia arbuscula* = low sage-steppe
-
-SEEP = seep/ wet meadow
+- ARRI = *Artemisia rigida* = scab-flat
+- ARAR = *Artemisia arbuscula* = low sage-steppe
+- SEEP = seep/ wet meadow
 
 ### Plot codes:
 Vegetation type code + plot number (plotno) (1-5)
@@ -23,20 +21,15 @@ Vegetation type code + plot number (plotno) (1-5)
 Vegetation type + plot number + treatment + subplot number (1-7 for seeded; 1-3 for unseeded control)
 
 #### Treatment codes:
-NN= "no neighbors" = Cleared unseeded control
-
-CC = "community" = Uncleared unseeded control
-
-N. = "no neighbors" = Cleared + seed
-
-C. = "community" = Uncleared + seed
+- NN= "no neighbors" = Cleared unseeded control
+- CC = "community" = Uncleared unseeded control
+- N. = "no neighbors" = Cleared + seed
+- C. = "community" = Uncleared + seed
 
 ## Scripts
 
 - "removal_treatment_vs_vegtype""
-
 ventenata response to clearing and vegetation type & test of seeding vs. unseeded control
 
 - "vedu_heights_and resident_biomass_by_vegtype"
-
 ventenata heights and resident biomass response to vegetation type
