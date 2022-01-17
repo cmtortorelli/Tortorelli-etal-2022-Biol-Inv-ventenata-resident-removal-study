@@ -1,5 +1,5 @@
 # ventenata-resident-removal-study
-Code and data to support the manuscript "How do plant communities influence the invasive annual grass, *Ventenata dubia*, across a productivity gradient?"
+Code and data to support the manuscript "The invasive annual grass, Ventenata dubia, is insensitive to experimental removal of above-ground resident biomass across a productivity gradient"
 
 ## Data
 
